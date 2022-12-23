@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+  wordpress:
+    image: wordpress
+    restart: unless-stopped
+    container_name: wordpress-DOMIAN
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db
+      WORDPRESS_DB_USER: DOMAIN
+      WORDPRESS_DB_PASSWORD: PASSWORDS
+      WORDPRESS_DB_NAME: wordpress-DOMAIN
+    volumes:
+      - ./app:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.entrypoints=https"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.rule=Host(`FQDN`)"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.middlewares=default@file"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.tls=true"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.tls.certresolver=http"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.service=wordpress-DOMAIN-ssl"
+      - "traefik.http.services.wordpress-DOMAIN-ssl.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - default
+  wordpress-db:
+    image: mariadb:10.6.4-focal
+    container_name: wordpress-db-DOMAIN
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress-DOMAIN
+      MYSQL_USER: DOMAIN
+      MYSQL_PASSWORD: PASSWORDS
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      - default
+networks:
+  proxy:
+    external: true
