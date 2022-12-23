@@ -24,6 +24,21 @@ services:
     networks:
       - proxy
       - default
+      
+  wpcli:
+    image: wordpress:cli
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db
+      WORDPRESS_DB_USER: DOMAIN
+      WORDPRESS_DB_PASSWORD: PASSWORDS
+      WORDPRESS_DB_NAME: wordpress-DOMAIN
+    volumes:
+      - ./app:/var/www/html/
+    depends_on:
+      - wordpress-db
+      - wordpress
+      
+      
   wordpress-db:
     image: mariadb:10.6.4-focal
     container_name: wordpress-db-DOMAIN
