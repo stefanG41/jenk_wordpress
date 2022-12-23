@@ -14,7 +14,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.entrypoints=https"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.rule=Host(`FQDN`)"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.rule=Host(FQDN)"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.middlewares=default@file"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.tls=true"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.tls.certresolver=http"
