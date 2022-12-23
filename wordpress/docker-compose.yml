@@ -3,7 +3,7 @@ services:
   wordpress:
     image: wordpress
     restart: unless-stopped
-    container_name: wordpress-DOMIAN
+    container_name: wordpress-DOMAIN
     environment:
       WORDPRESS_DB_HOST: wordpress-db
       WORDPRESS_DB_USER: DOMAIN
