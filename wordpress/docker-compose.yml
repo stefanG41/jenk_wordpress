@@ -3,12 +3,12 @@ services:
   wordpress:
     image: wordpress
     restart: unless-stopped
-    container_name: wordpress-DOMAIN
+    container_name: wordpress-CUSTOMER
     environment:
       WORDPRESS_DB_HOST: wordpress-db
-      WORDPRESS_DB_USER: DOMAIN
+      WORDPRESS_DB_USER: CUSTOMER
       WORDPRESS_DB_PASSWORD: PASSWORDS
-      WORDPRESS_DB_NAME: wordpress-DOMAIN
+      WORDPRESS_DB_NAME: wordpress-CUSTOMER
     volumes:
       - ./app:/var/www/html
     labels:
@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.wordpress-DOMAIN-ssl.middlewares=default@file"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.tls=true"
       - "traefik.http.routers.wordpress-DOMAIN-ssl.tls.certresolver=http"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.service=wordpress-DOMAIN-ssl"
+      - "traefik.http.routers.wordpress-DOMAIN-ssl.service=wordpress-CUSTOMER-ssl"
       - "traefik.http.services.wordpress-DOMAIN-ssl.loadbalancer.server.port=80"
       - "traefik.docker.network=proxy"
     networks:
@@ -29,9 +29,9 @@ services:
     image: wordpress:cli
     environment:
       WORDPRESS_DB_HOST: wordpress-db
-      WORDPRESS_DB_USER: DOMAIN
+      WORDPRESS_DB_USER: CUSTOMER
       WORDPRESS_DB_PASSWORD: PASSWORDS
-      WORDPRESS_DB_NAME: wordpress-DOMAIN
+      WORDPRESS_DB_NAME: wordpress-CUSTOMER
     volumes:
       - ./app:/var/www/html/
     depends_on:
@@ -41,11 +41,11 @@ services:
       
   wordpress-db:
     image: mariadb:latest
-    container_name: wordpress-db-DOMAIN
+    container_name: wordpress-db-CUSTOMER
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: wordpress-DOMAIN
-      MYSQL_USER: DOMAIN
+      MYSQL_DATABASE: wordpress-CUSTOMER
+      MYSQL_USER: CUSTOMER
       MYSQL_PASSWORD: PASSWORDS
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
