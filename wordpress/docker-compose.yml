@@ -13,13 +13,13 @@ services:
       - ./app:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.entrypoints=https"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.rule=Host(`FQDN`)"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.middlewares=default@file"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.tls=true"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.tls.certresolver=http"
-      - "traefik.http.routers.wordpress-DOMAIN-ssl.service=wordpress-CUSTOMER-ssl"
-      - "traefik.http.services.wordpress-DOMAIN-ssl.loadbalancer.server.port=80"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.entrypoints=https"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.rule=Host(`FQDN`)"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.middlewares=default@file"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.tls=true"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.tls.certresolver=http"
+      - "traefik.http.routers.wordpress-CUSTOMER-ssl.service=wordpress-CUSTOMER-ssl"
+      - "traefik.http.services.wordpress-CUSTOMER-ssl.loadbalancer.server.port=80"
       - "traefik.docker.network=proxy"
     networks:
       - proxy
