@@ -37,7 +37,7 @@ services:
     depends_on:
       - wordpress-db
       - wordpress
-      
+    user: xfs      
       
   wordpress-db:
     image: mariadb:latest
