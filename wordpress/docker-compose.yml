@@ -55,7 +55,7 @@ services:
 
   wordpress-redis:
     image: redis:alpine
-    container_name: '${COMPOSE_PROJECT_NAME}-redis-sp'
+    container_name: '${COMPOSE_PROJECT_NAME}-redis'
     restart: unless-stopped
     networks:
       - default
