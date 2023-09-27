@@ -52,6 +52,15 @@ services:
       - ./database:/var/lib/mysql
     networks:
       - default
+
+  wordpress-redis:
+    image: redis:alpine
+    container_name: '${COMPOSE_PROJECT_NAME}-redis-sp'
+    restart: unless-stopped
+    networks:
+      - default
+
+      
 networks:
   proxy:
     external: true
